@@ -1,0 +1,1929 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Underhill Agency Flag Football Playbook</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Barlow:wght@400;500;600;700&display=swap');
+
+  :root {
+    --navy: #1a2a5e;
+    --navy-dark: #0f1a3d;
+    --navy-deeper: #0a1128;
+    --navy-mid: #243070;
+    --red: #c8102e;
+    --red-bright: #e8192e;
+    --white: #ffffff;
+    --off-white: #e8edf5;
+    --silver: #a0aec0;
+    --light-navy: #2d3f7a;
+    --card-bg: #1a2652;
+    --card-border: rgba(255,255,255,0.09);
+    --accent: #c8102e;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Barlow', sans-serif;
+    background: var(--navy-deeper);
+    color: var(--white);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── LAYOUT ── */
+  .app-shell {
+    display: flex;
+    flex: 1;
+    min-height: 100vh;
+  }
+
+  /* ── SIDEBAR ── */
+  .sidebar {
+    width: 220px;
+    background: var(--navy-dark);
+    border-right: 1px solid rgba(200,16,46,0.35);
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0; left: 0; bottom: 0;
+    z-index: 200;
+    overflow-y: auto;
+  }
+
+  .sidebar-logo {
+    padding: 24px 20px 20px;
+    border-bottom: 2px solid var(--red);
+    text-align: center;
+  }
+  .sidebar-logo .logo-circle {
+    width: 80px; height: 80px;
+    border-radius: 50%;
+    background: var(--navy-mid);
+    border: 3px solid var(--white);
+    margin: 0 auto 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 36px;
+    position: relative;
+    overflow: hidden;
+  }
+  .logo-circle::after {
+    content: '';
+    position: absolute;
+    width: 70px; height: 1px;
+    background: rgba(255,255,255,0.3);
+    border-radius: 50%;
+    top: 50%; left: 50%;
+    transform: translate(-50%,-50%) rotate(-20deg);
+    box-shadow: 0 8px 0 rgba(255,255,255,0.15), 0 -8px 0 rgba(255,255,255,0.15);
+  }
+  .sidebar-logo h2 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 20px;
+    font-weight: 900;
+    color: var(--white);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    line-height: 1.1;
+  }
+  .sidebar-logo .red-rule {
+    display: flex; align-items: center; gap: 6px;
+    margin: 5px 0 3px;
+    justify-content: center;
+  }
+  .red-rule span { height: 2px; width: 24px; background: var(--red); display: block; }
+  .sidebar-logo .sub {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: var(--silver);
+    text-transform: uppercase;
+  }
+  .sidebar-logo .season {
+    font-size: 12px;
+    color: var(--red);
+    font-weight: 700;
+    margin-top: 6px;
+    letter-spacing: 1px;
+  }
+
+  .sidebar-nav { flex: 1; padding: 12px 0; }
+
+  .nav-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--silver);
+    text-transform: uppercase;
+    padding: 14px 20px 6px;
+    opacity: 0.6;
+  }
+
+  .nav-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 11px 20px;
+    background: transparent;
+    border: none;
+    color: var(--silver);
+    font-family: 'Barlow', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.18s;
+    text-align: left;
+    border-left: 3px solid transparent;
+  }
+  .nav-btn:hover { background: rgba(255,255,255,0.05); color: var(--white); }
+  .nav-btn.active {
+    background: rgba(200,16,46,0.15);
+    color: var(--white);
+    border-left-color: var(--red);
+  }
+  .nav-btn .nav-icon { font-size: 16px; width: 20px; text-align: center; }
+
+  .sidebar-footer {
+    padding: 16px 20px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    font-size: 11px;
+    color: var(--silver);
+    opacity: 0.5;
+    text-align: center;
+  }
+
+  /* ── MAIN CONTENT ── */
+  .main-content {
+    margin-left: 220px;
+    flex: 1;
+    min-height: 100vh;
+    padding: 0;
+  }
+
+  /* TOP BAR */
+  .topbar {
+    background: var(--navy-dark);
+    border-bottom: 2px solid var(--red);
+    padding: 14px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky; top: 0; z-index: 100;
+  }
+  .topbar-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--white);
+  }
+  .topbar-badge {
+    background: var(--red);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 4px 14px;
+    border-radius: 4px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  /* PAGE CONTAINER */
+  .page { display: none; padding: 32px; max-width: 960px; }
+  .page.active { display: block; }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(135deg, var(--navy-mid) 0%, var(--navy-dark) 100%);
+    border-radius: 12px;
+    padding: 36px 32px;
+    margin-bottom: 32px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(200,16,46,0.3);
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 280px; height: 100%;
+    background: radial-gradient(ellipse at right center, rgba(200,16,46,0.12), transparent 70%);
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--red), transparent);
+  }
+  .hero-eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 10px;
+  }
+  .hero h1 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(32px, 5vw, 52px);
+    font-weight: 900;
+    color: var(--white);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    line-height: 1.05;
+    position: relative;
+  }
+  .hero h1 span { color: var(--red); }
+  .hero p {
+    font-size: 15px;
+    color: var(--silver);
+    margin-top: 10px;
+    position: relative;
+    font-weight: 500;
+  }
+  .hero-emoji { font-size: 56px; position: absolute; right: 32px; top: 50%; transform: translateY(-50%); opacity: 0.2; }
+
+  /* SECTION TITLES */
+  .section-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--white);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 32px 0 16px;
+  }
+  .section-title .st-accent {
+    width: 4px; height: 22px;
+    background: var(--red);
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(255,255,255,0.1);
+    margin-left: 4px;
+  }
+
+  /* CARDS */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+
+  .card {
+    background: var(--card-bg);
+    border-radius: 10px;
+    padding: 20px;
+    border: 1px solid var(--card-border);
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  .card:hover { transform: translateY(-3px); border-color: rgba(200,16,46,0.5); }
+  .card h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .card p { font-size: 13px; color: var(--silver); line-height: 1.6; }
+  .card ul { margin-top: 8px; padding-left: 16px; }
+  .card ul li { font-size: 13px; color: var(--silver); margin-bottom: 4px; }
+
+  /* PLAY DIAGRAMS */
+  .plays-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+  }
+  .play-card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--card-border);
+    transition: all 0.2s;
+  }
+  .play-card:hover { border-color: var(--red); transform: translateY(-4px); }
+  .play-field {
+    background: #1e5c38;
+    padding: 16px;
+    height: 200px;
+    overflow: hidden;
+    position: relative;
+  }
+  .play-field::before {
+    content: '';
+    position: absolute;
+    left: 0; right: 0; top: 50%; height: 2px;
+    background: rgba(255,255,255,0.4);
+  }
+  svg.field { width: 100%; height: 100%; }
+  .linescrimmage { stroke: #fff; stroke-width: 1.5; stroke-dasharray: 4 3; }
+  .arrow { fill: none; stroke-width: 2; stroke-linecap: round; }
+  .arrow-o { stroke: #ffffff; }
+  .arrow-r { stroke: #e8192e; }
+  .arrow-b { stroke: #93c5fd; }
+  .player-o { fill: #ffffff; }
+  .player-r { fill: #e8192e; }
+  .player-qb { fill: #c8d8ff; }
+  .player-def { fill: #93c5fd; }
+  .player-label { font-family: 'Barlow Condensed', sans-serif; font-size: 9px; fill: #0f1a3d; font-weight: 700; text-anchor: middle; dominant-baseline: central; }
+  .route-label { font-family: 'Barlow', sans-serif; font-size: 8px; fill: rgba(255,255,255,0.8); }
+  .play-info { padding: 14px 16px; }
+  .play-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--white);
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .play-tag {
+    display: inline-block;
+    background: rgba(200,16,46,0.2);
+    color: #f87171;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+  .play-desc { font-size: 13px; color: var(--silver); line-height: 1.55; }
+
+  /* WEEK PLAN */
+  .week-card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    margin-bottom: 12px;
+    overflow: hidden;
+    border: 1px solid var(--card-border);
+  }
+  .week-header {
+    background: linear-gradient(90deg, var(--navy-mid), var(--navy-dark));
+    padding: 14px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+    border-left: 4px solid var(--red);
+  }
+  .week-header h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--white);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .week-badge {
+    background: rgba(200,16,46,0.25);
+    border: 1px solid rgba(200,16,46,0.4);
+    border-radius: 4px;
+    padding: 3px 10px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #f87171;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .week-body { padding: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media(max-width:600px){ .week-body { grid-template-columns: 1fr; } }
+  .session-block {
+    background: var(--navy-dark);
+    border-radius: 10px;
+    padding: 14px;
+    border-left: 3px solid rgba(200,16,46,0.5);
+  }
+  .session-block.game { border-left-color: var(--red); }
+  .session-block h4 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .session-block.game h4 { color: #f87171; }
+  .drill-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    font-size: 13px;
+  }
+  .drill-item:last-child { border-bottom: none; }
+  .drill-name { color: var(--off-white); font-weight: 600; }
+  .drill-time {
+    background: rgba(200,16,46,0.2);
+    color: #f87171;
+    font-size: 11px;
+    font-weight: 800;
+    padding: 2px 7px;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+  .drill-desc { color: var(--silver); font-size: 12px; margin-top: 2px; }
+
+  /* TIPS */
+  .tip-card {
+    background: var(--card-bg);
+    border-radius: 10px;
+    padding: 16px 18px;
+    margin-bottom: 12px;
+    border-left: 4px solid var(--red);
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .tip-icon { font-size: 26px; flex-shrink: 0; }
+  .tip-card h4 { color: var(--white); font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+  .tip-card p { color: var(--silver); font-size: 13px; line-height: 1.6; }
+
+  /* RULES */
+  .rule-item {
+    background: var(--card-bg);
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin-bottom: 8px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    border: 1px solid var(--card-border);
+  }
+  .rule-num {
+    background: var(--red);
+    color: #fff;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    width: 36px; height: 36px;
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .rule-item strong { color: var(--white); font-size: 14px; font-weight: 700; display: block; margin-bottom: 3px; }
+  .rule-item span { color: var(--silver); font-size: 13px; }
+
+  /* CHEER / CTA BOX */
+  .cheer-box {
+    background: linear-gradient(135deg, var(--navy-mid), var(--navy-dark));
+    border-radius: 12px;
+    padding: 24px 28px;
+    text-align: center;
+    margin-top: 28px;
+    border: 1px solid rgba(200,16,46,0.4);
+    position: relative;
+    overflow: hidden;
+  }
+  .cheer-box::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 3px;
+    background: var(--red);
+  }
+  .cheer-box h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--white);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+  .cheer-box p { color: var(--silver); font-size: 14px; }
+
+  /* ROSTER */
+  .roster-card {
+    background: var(--card-bg);
+    border-radius: 10px;
+    padding: 16px 20px;
+    border: 1px solid var(--card-border);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    transition: all 0.2s;
+  }
+  .roster-card:hover { border-color: rgba(200,16,46,0.5); transform: translateX(4px); }
+  .player-num {
+    background: var(--navy-mid);
+    border: 2px solid var(--red);
+    color: var(--white);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 22px;
+    font-weight: 900;
+    width: 44px; height: 44px;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .player-info { flex: 1; }
+  .player-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--white);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .player-pos {
+    font-size: 12px;
+    color: var(--red);
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+  .player-badge {
+    font-size: 11px;
+    background: rgba(255,255,255,0.06);
+    color: var(--silver);
+    padding: 3px 10px;
+    border-radius: 4px;
+    font-weight: 600;
+  }
+
+  /* PILLS */
+  .pill {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 700;
+    margin: 2px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .pill-red { background: rgba(200,16,46,0.2); color: #f87171; }
+  .pill-blue { background: rgba(29,78,216,0.3); color: #93c5fd; }
+  .pill-white { background: rgba(255,255,255,0.1); color: var(--off-white); }
+
+  /* COLLAPSIBLE */
+  .collapsible { display: none; }
+  .week-card.open .collapsible { display: grid; }
+  .week-card.open .toggle-icon { transform: rotate(180deg); }
+  .toggle-icon { transition: transform 0.25s; display: inline-block; }
+
+  /* MOBILE */
+  @media(max-width: 680px) {
+    .sidebar { width: 100%; height: auto; position: relative; flex-direction: row; flex-wrap: wrap; }
+    .sidebar-logo { display: none; }
+    .sidebar-nav { display: flex; flex-direction: row; flex-wrap: wrap; padding: 6px; width: 100%; }
+    .nav-btn { width: auto; padding: 8px 12px; border-left: none; border-bottom: 3px solid transparent; font-size: 13px; }
+    .nav-btn.active { border-bottom-color: var(--red); border-left: none; background: rgba(200,16,46,0.1); }
+    .nav-label { display: none; }
+    .sidebar-footer { display: none; }
+    .app-shell { flex-direction: column; }
+    .main-content { margin-left: 0; }
+    .topbar { padding: 12px 16px; }
+    .page { padding: 16px; }
+    .hero-emoji { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="app-shell">
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-circle">🏈</div>
+    <h2>Underhill<br>Agency</h2>
+    <div class="red-rule"><span></span><span></span></div>
+    <div class="sub">Flag Football</div>
+    <div class="season">Marshall Rec • 2025</div>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-label">Playbook</div>
+    <button class="nav-btn active" onclick="showTab('home', this)"><span class="nav-icon">🏠</span> Home</button>
+    <button class="nav-btn" onclick="showTab('rules', this)"><span class="nav-icon">📋</span> Rules</button>
+    <button class="nav-btn" onclick="showTab('offense', this)"><span class="nav-icon">⚡</span> Offense</button>
+    <button class="nav-btn" onclick="showTab('defense', this)"><span class="nav-icon">🛡️</span> Defense</button>
+    <div class="nav-label">Season</div>
+    <button class="nav-btn" onclick="showTab('drills', this)"><span class="nav-icon">🏃</span> Drills</button>
+    <button class="nav-btn" onclick="showTab('schedule', this)"><span class="nav-icon">📅</span> 8-Week Plan</button>
+    <button class="nav-btn" onclick="showTab('tips', this)"><span class="nav-icon">💡</span> Coach Tips</button>
+    <div class="nav-label">Team</div>
+    <button class="nav-btn" onclick="showTab('roster', this)"><span class="nav-icon">👥</span> Roster</button>
+  </nav>
+  <div class="sidebar-footer">Underhill Agency © 2025</div>
+</aside>
+
+<!-- MAIN -->
+<div class="main-content">
+  <div class="topbar">
+    <div class="topbar-title" id="topbar-label">🏠 Home</div>
+    <div class="topbar-badge">Ages 5–8</div>
+  </div>
+
+<!-- HOME -->
+<div id="home" class="page active">
+  <div class="hero">
+    <div class="hero-eyebrow">Marshall Recreation Department</div>
+    <h1>Underhill <span>Agency</span><br>Flag Football</h1>
+    <p>Ages 5–8 &nbsp;•&nbsp; Fun First &nbsp;•&nbsp; Learn the Game!</p>
+    <div class="hero-emoji">🏈</div>
+  </div>
+
+  <div class="section-title"><div class="st-accent"></div>📖 About This Playbook</div>
+  <div class="card-grid">
+    <div class="card">
+      <h3>🎯 Philosophy</h3>
+      <p>Every play, drill, and practice is designed to be <strong style="color:#ffd166">FUN FIRST</strong>. At this age, kids learn through play. We teach basics simply, celebrate effort, and build love for the game.</p>
+    </div>
+    <div class="card">
+      <h3>👧👦 Ages 5–8</h3>
+      <p>Short attention spans = short sessions! Drills last 5–8 minutes max. We use colors, animals, and fun names so kids remember plays easily.</p>
+    </div>
+    <div class="card">
+      <h3>🏆 Team Size</h3>
+      <p>Designed for <strong style="color:#ffd166">5-on-5</strong> flag football — the most common youth format. Easily adaptable to 4-on-4 or 7-on-7 formats.</p>
+    </div>
+    <div class="card">
+      <h3>📐 Field Setup</h3>
+      <p>30 yard field length, 20 yards wide. Two 15-yard halves. 5-yard end zones. 4 downs to reach midfield, 4 more to score. No rushing the QB.</p>
+    </div>
+  </div>
+
+  <div class="section-title"><div class="st-accent"></div>🌟 Key Positions (Simplified)</div>
+  <div class="card-grid">
+    <div class="card">
+      <h3>🌟 QB (Quarterback)</h3>
+      <p>Calls the play, takes the snap, throws or hands off. The team leader. Use your most confident kid — rotate often so everyone gets a chance!</p>
+    </div>
+    <div class="card">
+      <h3>🚀 Center</h3>
+      <p>Snaps the ball between their legs to start every play. Simple job — but very important. Great role for a focused, reliable player.</p>
+    </div>
+    <div class="card">
+      <h3>⚡ Receivers (3)</h3>
+      <p>Run routes and catch passes. Teach: look for the ball, run straight, then turn around! Split wide left, right, and middle (slot).</p>
+    </div>
+    <div class="card">
+      <h3>🏃 Runner / RB</h3>
+      <p>Takes handoffs from QB and runs. Teach: hold the ball tight, run toward open space, protect your flags!</p>
+    </div>
+  </div>
+
+  <div class="cheer-box">
+    <h3>🏈 Underhill Agency Team Cheer!</h3>
+    <p>"Ready, Set, HUT! Let's have fun and never give up!" 🎉</p>
+  </div>
+</div>
+
+<!-- RULES -->
+<div id="rules" class="page">
+  <div class="hero">
+    <div class="hero-eyebrow">Marshall Recreation Department</div>
+    <h1>Official <span>Rules</span></h1>
+    <p>Flag Football By-Laws — Underhill Agency</p>
+    <div class="hero-emoji">📋</div>
+  </div>
+
+  <!-- EQUIPMENT -->
+  <div class="section-title">👟 Equipment</div>
+  <div class="rule-item">
+    <div class="rule-num">1</div>
+    <div><strong>League Provides</strong><span>The Marshall Recreation Department provides jerseys, flags, belts, and footballs. You just need to show up!</span></div>
+  </div>
+  <div class="rule-item">
+    <div class="rule-num">2</div>
+    <div><strong>Shoes Required</strong><span>Players must wear shoes. Football cleats are encouraged — but no exposed metal allowed.</span></div>
+  </div>
+  <div class="rule-item">
+    <div class="rule-num">3</div>
+    <div><strong>No Jewelry</strong><span>All watches and jewelry must be removed before play. Safety first!</span></div>
+  </div>
+  <div class="rule-item">
+    <div class="rule-num">4</div>
+    <div><strong>Jersey Rules</strong><span>Jerseys must be worn during play. If the jersey hangs below the belt line, it must be tucked in so flags are visible.</span></div>
+  </div>
+  <div class="rule-item">
+    <div class="rule-num">5</div>
+    <div><strong>Clothing & Protection</strong><span>Sweatpants or shorts are recommended. Mouthguards are encouraged for added safety.</span></div>
+  </div>
+
+  <!-- GAME RULES -->
+  <div class="section-title">🏈 Game Rules</div>
+  <div class="rule-item">
+    <div class="rule-num">1</div>
+    <div><strong>First Possession</strong><span>The team listed first on the schedule starts with the ball. After halftime, the other team gets possession to start the second half.</span></div>
+  </div>
+  <div class="rule-item">
+    <div class="rule-num">2</div>
+    <div><strong>3 Plays to Midfield, 3 to Score</strong><span>Each possession starts at your own 5-yard line. You get 3 plays to cross midfield. Once past midfield, you get 3 more plays to score a touchdown.</span></div>
+  </div>
+  <div class="rule-item">
+    <div class="rule-num">3</div>
+    <div><strong>Turnover on Downs</strong><span>If the offense fails to cross midfield OR fails to score, possession changes. The new offense always starts at their own 5-yard line.</span></div>
+  </div>
+  <div class="rule-item">
+    <div class="rule-num">4</div>
+    <div><strong>All Turnovers → 5-Yard Line</strong><span>All possession changes — except interceptions — begin at the new offense's 5-yard line.</span></div>
+  </div>
+  <div class="rule-item">
+    <div class="rule-num">5</div>
+    <div><strong>Halftime Switch</strong><span>Teams switch sides at halftime. The team that started on defense gets the ball to begin the second half.</span></div>
+  </div>
+
+  <!-- FIELD RULES -->
+  <div class="section-title">🏟️ Field Rules</div>
+  <div class="rule-item">
+    <div class="rule-num">1</div>
+    <div><strong>⚠️ No-Run Zones</strong><span>There are No-Run Zones located 5 yards before midfield AND 5 yards before the end zone. No running plays allowed from inside these zones — passing only!</span></div>
+  </div>
+  <div class="rule-item">
+    <div class="rule-num">2</div>
+    <div><strong>Out of Bounds</strong><span>Stepping ON the boundary line counts as out of bounds. Receivers need at least one foot clearly inbounds to complete a catch.</span></div>
+  </div>
+
+  <!-- TIMING -->
+  <div class="section-title">⏱️ Timing</div>
+  <div class="card-grid">
+    <div class="card">
+      <h3>⏰ Game Length</h3>
+      <p>Two <strong style="color:#ffd166">18-minute halves</strong>. The clock only stops for timeouts or if the official calls it (e.g., injury).</p>
+    </div>
+    <div class="card">
+      <h3>🕐 Timeouts</h3>
+      <p>Each team gets <strong style="color:#ffd166">one 60-second timeout</strong> per game. Use it wisely!</p>
+    </div>
+    <div class="card">
+      <h3>🍊 Halftime</h3>
+      <p>Halftime lasts <strong style="color:#ffd166">three minutes</strong>. Quick water break, swap sides, and go!</p>
+    </div>
+    <div class="card">
+      <h3>📢 Snap Clock</h3>
+      <p>Once the ball is placed, the offense has <strong style="color:#ffd166">20 seconds to snap</strong> the ball. Huddle fast!</p>
+    </div>
+  </div>
+
+  <!-- LIVE / DEAD BALL -->
+  <div class="section-title">🟢 Live Ball / Dead Ball</div>
+  <div class="rule-item">
+    <div class="rule-num">1</div>
+    <div><strong>Ball is Live at the Snap</strong><span>The ball is live as soon as it is snapped and stays live until the official blows the whistle.</span></div>
+  </div>
+  <div class="rule-item">
+    <div class="rule-num">2</div>
+    <div><strong>Catches In Bounds</strong><span>A catch is good if the player controls the ball with at least one foot down inbounds.</span></div>
+  </div>
+  <div class="rule-item">
+    <div class="rule-num">3</div>
+    <div><strong>No Mimicking Signals</strong><span>The defense may not copy or mimic offensive signals. That's a penalty!</span></div>
+  </div>
+  <div class="rule-item">
+    <div class="rule-num">4</div>
+    <div><strong>Substitutions</strong><span>Substitutions are allowed on any dead ball. Swap players freely between plays.</span></div>
+  </div>
+
+  <div class="section-title">🔴 When is the Play Dead?</div>
+  <div class="card-grid">
+    <div class="card">
+      <h3>🏈 Ball Hits Ground</h3>
+      <p>No fumbles in flag football! If the ball hits the ground — from a drop, bad snap, or any reason — the play is immediately dead.</p>
+    </div>
+    <div class="card">
+      <h3>🚩 Flag is Pulled</h3>
+      <p>Play ends when the ball carrier's flag is pulled. Also dead if the carrier has one flag or NO flags while holding the ball.</p>
+    </div>
+    <div class="card">
+      <h3>📡 Receiver with No Flags</h3>
+      <p>If a receiver catches the ball but has one or no flags attached, the play is ruled dead immediately at the spot of the catch.</p>
+    </div>
+    <div class="card">
+      <h3>📏 Out of Bounds</h3>
+      <p>Play is dead the moment the ball carrier steps on or outside the boundary line.</p>
+    </div>
+    <div class="card">
+      <h3>7️⃣ Pass Clock Expires</h3>
+      <p>The QB has 7 seconds to throw after the snap. If the clock expires, the play is dead and the ball goes back to the original line of scrimmage.</p>
+    </div>
+    <div class="card">
+      <h3>📣 Inadvertent Whistle</h3>
+      <p>If the official accidentally blows the whistle, the offense can either take the ball at the spot of the whistle (lose the down) OR replay the down from the original line.</p>
+    </div>
+  </div>
+
+  <!-- RUNNING / PASSING / RECEIVING -->
+  <div class="section-title">🏃 Running, Passing & Receiving</div>
+  <div class="rule-item">
+    <div class="rule-num">1</div>
+    <div><strong>Where is the Ball Spotted?</strong><span>The ball is spotted where the runner's FEET are when the flag is pulled — not where the ball is.</span></div>
+  </div>
+  <div class="rule-item">
+    <div class="rule-num">2</div>
+    <div><strong>QB Can't Cross the Line</strong><span>The quarterback cannot run past the line of scrimmage. However, the QB may scramble behind the line to avoid a sack.</span></div>
+  </div>
+  <div class="rule-item">
+    <div class="rule-num">3</div>
+    <div><strong>No Laterals or Pitches</strong><span>No lateral passes or pitches allowed. The player receiving a handoff MAY pass the ball from behind the line of scrimmage.</span></div>
+  </div>
+  <div class="rule-item">
+    <div class="rule-num">4</div>
+    <div><strong>Rush After Handoff</strong><span>Once the ball is handed off, ALL defenders become eligible to rush immediately — no 7-yard restriction applies after a handoff.</span></div>
+  </div>
+  <div class="rule-item">
+    <div class="rule-num">5</div>
+    <div><strong>No Diving or Jumping</strong><span>Ball carriers may NOT dive, leap, or jump to avoid flag pulls. Players may only leave their feet to avoid a collision.</span></div>
+  </div>
+  <div class="rule-item">
+    <div class="rule-num">6</div>
+    <div><strong>No Blocking</strong><span>No blocking, screening, or running alongside the ball carrier is allowed at any time.</span></div>
+  </div>
+  <div class="rule-item">
+    <div class="rule-num">7</div>
+    <div><strong>7-Second Pass Clock</strong><span>All passes must be thrown from behind the line of scrimmage. The QB has 7 seconds to release the ball or the play is dead.</span></div>
+  </div>
+  <div class="rule-item">
+    <div class="rule-num">8</div>
+    <div><strong>Everyone is Eligible</strong><span>All players — including the QB (if a handoff happened first) — are eligible to receive passes.</span></div>
+  </div>
+  <div class="rule-item">
+    <div class="rule-num">9</div>
+    <div><strong>One Player in Motion</strong><span>Only one offensive player may be in motion at a time before the snap.</span></div>
+  </div>
+  <div class="rule-item">
+    <div class="rule-num">10</div>
+    <div><strong>Simultaneous Possession</strong><span>If both a receiver and defender catch the ball at the same time, the offense gets possession.</span></div>
+  </div>
+  <div class="rule-item">
+    <div class="rule-num">11</div>
+    <div><strong>Interceptions</strong><span>Interceptions can be returned — EXCEPT on conversions (extra point attempts) after a touchdown.</span></div>
+  </div>
+
+  <!-- RUSHING / FLAG PULLING -->
+  <div class="section-title">🚩 Rushing the Passer & Flag Pulling</div>
+  <div class="rule-item">
+    <div class="rule-num">1</div>
+    <div><strong>7-Yard Rush Line</strong><span>All rushers must start at least 7 yards from the line of scrimmage before the snap.</span></div>
+  </div>
+  <div class="rule-item">
+    <div class="rule-num">2</div>
+    <div><strong>Wait for the Handoff</strong><span>Defenders must wait until the ball is actually handed off before they can rush. No early rushing the QB!</span></div>
+  </div>
+  <div class="rule-item">
+    <div class="rule-num">3</div>
+    <div><strong>Can't Rush QB on Pass Plays</strong><span>Rushers may NOT charge the QB unless a handoff has occurred. After a handoff, rushing is allowed from anywhere.</span></div>
+  </div>
+  <div class="rule-item">
+    <div class="rule-num">4</div>
+    <div><strong>No Contact on the Passer</strong><span>Rushers may not make contact with the QB. Offense may not block or impede any rusher either.</span></div>
+  </div>
+  <div class="rule-item">
+    <div class="rule-num">5</div>
+    <div><strong>Sacks & Safeties</strong><span>A sack occurs if the QB's flag is pulled behind the line of scrimmage. If this happens in the end zone, the defense scores a <strong style="color:#ff8fa3">Safety (2 points)</strong>.</span></div>
+  </div>
+  <div class="rule-item">
+    <div class="rule-num">6</div>
+    <div><strong>No Tackling or Stripping</strong><span>Absolutely no tackling or attempting to strip the ball from a carrier. Flags only!</span></div>
+  </div>
+  <div class="rule-item">
+    <div class="rule-num">7</div>
+    <div><strong>Flag Falls Off = Pulled</strong><span>If a ball carrier's flag falls off on its own (without being pulled), it is treated the same as a flag pull — the play is dead.</span></div>
+  </div>
+  <div class="rule-item">
+    <div class="rule-num">8</div>
+    <div><strong>No Flag Guarding or Stiff Arms</strong><span>Ball carriers cannot guard their flags with their hands/arms or use a stiff arm. Penalty will be called!</span></div>
+  </div>
+
+  <!-- QUICK REFERENCE CARDS -->
+  <div class="section-title">⚡ Quick Reference — Key Numbers</div>
+  <div class="card-grid">
+    <div class="card">
+      <h3>🔢 Possession Numbers</h3>
+      <p><strong style="color:#ffd166">3</strong> plays to cross midfield<br/>
+      <strong style="color:#ffd166">3</strong> plays to score after midfield<br/>
+      <strong style="color:#ffd166">5-yard line</strong> — where every drive starts</p>
+    </div>
+    <div class="card">
+      <h3>⏰ Time Numbers</h3>
+      <p><strong style="color:#ffd166">18 min</strong> per half<br/>
+      <strong style="color:#ffd166">3 min</strong> halftime<br/>
+      <strong style="color:#ffd166">60 sec</strong> timeout (1 per team)<br/>
+      <strong style="color:#ffd166">20 sec</strong> to snap the ball<br/>
+      <strong style="color:#ffd166">7 sec</strong> pass clock</p>
+    </div>
+    <div class="card">
+      <h3>📏 Distance Numbers</h3>
+      <p><strong style="color:#ffd166">7 yards</strong> — rushers must start back<br/>
+      <strong style="color:#ffd166">5 yards</strong> — No-Run Zones before midfield and end zone</p>
+    </div>
+    <div class="card">
+      <h3>🚫 Always Illegal</h3>
+      <p>Blocking • Tackling • Diving • Laterals • Stiff arms • Flag guarding • Exposed metal cleats • Jewelry</p>
+    </div>
+  </div>
+
+  <div class="cheer-box">
+    <h3>📍 Marshall Recreation Department</h3>
+    <p>These are the official by-laws for Marshall Rec Flag Football. When in doubt, ask your official — they're there to help everyone have fun and stay safe! 🏈</p>
+  </div>
+</div>
+
+<!-- OFFENSE -->
+<div id="offense" class="page">
+  <div class="hero">
+    <div class="hero-eyebrow">Underhill Agency Playbook</div>
+    <h1>Offensive <span>Plays</span></h1>
+    <p>Simple routes — big fun! Run the ball, throw the ball, score!</p>
+    <div class="hero-emoji">⚡</div>
+  </div>
+
+  <div class="section-title">🏃 Running Plays</div>
+  <div class="plays-grid">
+
+    <!-- PLAY: Bunny Run -->
+    <div class="play-card">
+      <div class="play-field">
+        <svg class="field" viewBox="0 0 200 160">
+          <!-- line of scrimmage -->
+          <line x1="0" y1="100" x2="200" y2="100" class="linescrimmage"/>
+          <!-- Center -->
+          <circle cx="100" cy="100" r="9" class="player-qb"/>
+          <text x="100" y="100" class="player-label">C</text>
+          <!-- QB -->
+          <circle cx="100" cy="118" r="9" class="player-o"/>
+          <text x="100" y="118" class="player-label">QB</text>
+          <!-- RB -->
+          <circle cx="140" cy="118" r="9" class="player-r"/>
+          <text x="140" y="118" class="player-label">RB</text>
+          <!-- WR Left -->
+          <circle cx="30" cy="100" r="9" class="player-o"/>
+          <text x="30" y="100" class="player-label">WL</text>
+          <!-- WR Right -->
+          <circle cx="170" cy="100" r="9" class="player-o"/>
+          <text x="170" y="100" class="player-label">WR</text>
+          <!-- Handoff arrow -->
+          <path d="M100 110 Q120 112 131 118" class="arrow arrow-r" marker-end="url(#arrowR)"/>
+          <!-- Run arrow -->
+          <path d="M140 110 L140 75 L160 55" class="arrow arrow-r" marker-end="url(#arrowR)"/>
+          <defs>
+            <marker id="arrowR" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L6,3 z" fill="#e63946"/>
+            </marker>
+          </defs>
+          <text x="150" y="70" class="route-label">RUN!</text>
+        </svg>
+      </div>
+      <div class="play-info">
+        <div class="play-name">🐰 Bunny Run (Sweep Right)</div>
+        <span class="play-tag">Running</span>
+        <div class="play-desc">QB takes snap, turns and hands off to RB who runs to the right sideline. Wide receiver on right side goes straight to clear space. Best play to start with!</div>
+      </div>
+    </div>
+
+    <!-- PLAY: Turtle Run -->
+    <div class="play-card">
+      <div class="play-field">
+        <svg class="field" viewBox="0 0 200 160">
+          <line x1="0" y1="100" x2="200" y2="100" class="linescrimmage"/>
+          <circle cx="100" cy="100" r="9" class="player-qb"/>
+          <text x="100" y="100" class="player-label">C</text>
+          <circle cx="100" cy="118" r="9" class="player-o"/>
+          <text x="100" y="118" class="player-label">QB</text>
+          <circle cx="70" cy="118" r="9" class="player-r"/>
+          <text x="70" y="118" class="player-label">RB</text>
+          <circle cx="30" cy="100" r="9" class="player-o"/>
+          <text x="30" y="100" class="player-label">WL</text>
+          <circle cx="170" cy="100" r="9" class="player-o"/>
+          <text x="170" y="100" class="player-label">WR</text>
+          <path d="M100 110 Q85 112 79 118" class="arrow arrow-r" marker-end="url(#arrowR2)"/>
+          <path d="M70 110 L70 75 L40 55" class="arrow arrow-r" marker-end="url(#arrowR2)"/>
+          <defs>
+            <marker id="arrowR2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L6,3 z" fill="#e63946"/>
+            </marker>
+          </defs>
+          <text x="38" y="60" class="route-label">RUN!</text>
+        </svg>
+      </div>
+      <div class="play-info">
+        <div class="play-name">🐢 Turtle Run (Sweep Left)</div>
+        <span class="play-tag">Running</span>
+        <div class="play-desc">Mirror of Bunny Run — RB lined up left and sweeps left. Great for changing direction and keeping defense guessing. Kids love the animal names!</div>
+      </div>
+    </div>
+
+    <!-- PLAY: Bull Rush -->
+    <div class="play-card">
+      <div class="play-field">
+        <svg class="field" viewBox="0 0 200 160">
+          <line x1="0" y1="100" x2="200" y2="100" class="linescrimmage"/>
+          <circle cx="100" cy="100" r="9" class="player-qb"/>
+          <text x="100" y="100" class="player-label">C</text>
+          <circle cx="100" cy="118" r="9" class="player-o"/>
+          <text x="100" y="118" class="player-label">QB</text>
+          <circle cx="100" cy="135" r="9" class="player-r"/>
+          <text x="100" y="135" class="player-label">RB</text>
+          <circle cx="40" cy="100" r="9" class="player-o"/>
+          <text x="40" y="100" class="player-label">WL</text>
+          <circle cx="160" cy="100" r="9" class="player-o"/>
+          <text x="160" y="100" class="player-label">WR</text>
+          <path d="M100 118 L100 108" class="arrow arrow-r" marker-end="url(#arrowR3)"/>
+          <path d="M100 100 L100 55" class="arrow arrow-r" marker-end="url(#arrowR3)"/>
+          <defs>
+            <marker id="arrowR3" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L6,3 z" fill="#e63946"/>
+            </marker>
+          </defs>
+          <text x="108" y="68" class="route-label">CHARGE!</text>
+        </svg>
+      </div>
+      <div class="play-info">
+        <div class="play-name">🐂 Bull Rush (Up the Middle)</div>
+        <span class="play-tag">Running</span>
+        <div class="play-desc">QB hands off to RB who runs straight up the middle. Short yardage play — great on 3rd or 4th down when you need just a few yards to the first down marker.</div>
+      </div>
+    </div>
+
+    <!-- QB SCRAMBLE -->
+    <div class="play-card">
+      <div class="play-field">
+        <svg class="field" viewBox="0 0 200 160">
+          <line x1="0" y1="100" x2="200" y2="100" class="linescrimmage"/>
+          <circle cx="100" cy="100" r="9" class="player-qb"/>
+          <text x="100" y="100" class="player-label">C</text>
+          <circle cx="100" cy="118" r="9" class="player-o"/>
+          <text x="100" y="118" class="player-label">QB</text>
+          <circle cx="40" cy="100" r="9" class="player-o"/>
+          <text x="40" y="100" class="player-label">WL</text>
+          <circle cx="160" cy="100" r="9" class="player-o"/>
+          <text x="160" y="100" class="player-label">WR</text>
+          <circle cx="145" cy="118" r="9" class="player-o"/>
+          <text x="145" y="118" class="player-label">SL</text>
+          <!-- WRs run out wide -->
+          <path d="M40 92 L40 60" class="arrow arrow-o" marker-end="url(#arrowO)"/>
+          <path d="M160 92 L160 60" class="arrow arrow-o" marker-end="url(#arrowO)"/>
+          <!-- QB scrambles right -->
+          <path d="M100 110 Q130 108 145 90 L155 65" class="arrow arrow-b" stroke-dasharray="5 3" marker-end="url(#arrowB)"/>
+          <defs>
+            <marker id="arrowO" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L6,3 z" fill="#ffd166"/>
+            </marker>
+            <marker id="arrowB" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L6,3 z" fill="#7dd3f7"/>
+            </marker>
+          </defs>
+          <text x="130" y="58" class="route-label">QB RUN</text>
+        </svg>
+      </div>
+      <div class="play-info">
+        <div class="play-name">🦊 Fox Scramble (QB Run)</div>
+        <span class="play-tag">Running</span>
+        <div class="play-desc">Receivers run wide to spread defense. QB keeps the ball and runs for open space. Works great when the QB is fast and confident. Kids go wild for this one!</div>
+      </div>
+    </div>
+
+  </div><!-- end running plays grid -->
+
+  <div class="section-title">📡 Passing Plays</div>
+  <div class="plays-grid">
+
+    <!-- GO ROUTE -->
+    <div class="play-card">
+      <div class="play-field">
+        <svg class="field" viewBox="0 0 200 160">
+          <line x1="0" y1="100" x2="200" y2="100" class="linescrimmage"/>
+          <circle cx="100" cy="100" r="9" class="player-qb"/>
+          <text x="100" y="100" class="player-label">C</text>
+          <circle cx="100" cy="118" r="9" class="player-o"/>
+          <text x="100" y="118" class="player-label">QB</text>
+          <!-- WR left go route -->
+          <circle cx="30" cy="100" r="9" class="player-o"/>
+          <text x="30" y="100" class="player-label">WL</text>
+          <path d="M30 91 L30 40" class="arrow arrow-o" marker-end="url(#arrowO2)"/>
+          <!-- WR right go route -->
+          <circle cx="170" cy="100" r="9" class="player-o"/>
+          <text x="170" y="100" class="player-label">WR</text>
+          <path d="M170 91 L170 40" class="arrow arrow-o" marker-end="url(#arrowO2)"/>
+          <!-- Slot curl -->
+          <circle cx="70" cy="100" r="9" class="player-o"/>
+          <text x="70" y="100" class="player-label">SL</text>
+          <path d="M70 91 L70 70 Q70 55 85 55" class="arrow arrow-b" marker-end="url(#arrowB2)"/>
+          <!-- pass arc -->
+          <path d="M100 112 Q55 75 30 45" class="arrow arrow-r" stroke-dasharray="4 3" marker-end="url(#arrowR4)"/>
+          <defs>
+            <marker id="arrowO2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L6,3 z" fill="#ffd166"/>
+            </marker>
+            <marker id="arrowB2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L6,3 z" fill="#7dd3f7"/>
+            </marker>
+            <marker id="arrowR4" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L6,3 z" fill="#e63946"/>
+            </marker>
+          </defs>
+          <text x="15" y="38" class="route-label">GO!</text>
+          <text x="83" y="52" class="route-label">CURL</text>
+        </svg>
+      </div>
+      <div class="play-info">
+        <div class="play-name">🚀 Rocket (Go Routes)</div>
+        <span class="play-tag">Passing</span>
+        <div class="play-desc">Both outside receivers run straight down the field as fast as they can (Go route). Slot receiver runs a curl for a safe dump-off. QB picks whoever is open. Simple and fun!</div>
+      </div>
+    </div>
+
+    <!-- HITCH -->
+    <div class="play-card">
+      <div class="play-field">
+        <svg class="field" viewBox="0 0 200 160">
+          <line x1="0" y1="100" x2="200" y2="100" class="linescrimmage"/>
+          <circle cx="100" cy="100" r="9" class="player-qb"/>
+          <text x="100" y="100" class="player-label">C</text>
+          <circle cx="100" cy="118" r="9" class="player-o"/>
+          <text x="100" y="118" class="player-label">QB</text>
+          <!-- Left hitch -->
+          <circle cx="25" cy="100" r="9" class="player-o"/>
+          <text x="25" y="100" class="player-label">WL</text>
+          <path d="M25 91 L25 72 Q25 62 35 62" class="arrow arrow-o" marker-end="url(#arrowO3)"/>
+          <!-- Right hitch -->
+          <circle cx="175" cy="100" r="9" class="player-o"/>
+          <text x="175" y="100" class="player-label">WR</text>
+          <path d="M175 91 L175 72 Q175 62 165 62" class="arrow arrow-o" marker-end="url(#arrowO3)"/>
+          <!-- Slot go -->
+          <circle cx="70" cy="100" r="9" class="player-o"/>
+          <text x="70" y="100" class="player-label">SL</text>
+          <path d="M70 91 L70 40" class="arrow arrow-b" marker-end="url(#arrowB3)"/>
+          <!-- Pass -->
+          <path d="M100 112 Q60 85 35 62" class="arrow arrow-r" stroke-dasharray="4 3" marker-end="url(#arrowR5)"/>
+          <defs>
+            <marker id="arrowO3" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L6,3 z" fill="#ffd166"/>
+            </marker>
+            <marker id="arrowB3" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L6,3 z" fill="#7dd3f7"/>
+            </marker>
+            <marker id="arrowR5" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L6,3 z" fill="#e63946"/>
+            </marker>
+          </defs>
+          <text x="30" y="56" class="route-label">STOP&TURN</text>
+          <text x="58" y="38" class="route-label">GO!</text>
+        </svg>
+      </div>
+      <div class="play-info">
+        <div class="play-name">🎣 Hook & Hope (Out Routes)</div>
+        <span class="play-tag">Passing</span>
+        <div class="play-desc">Outside receivers run 5 steps forward, stop, turn toward QB. Deep slot receiver goes long. QB throws quickly to the hitch. Teach kids: 5 steps → STOP → turn and look!</div>
+      </div>
+    </div>
+
+    <!-- CROSSING ROUTES -->
+    <div class="play-card">
+      <div class="play-field">
+        <svg class="field" viewBox="0 0 200 160">
+          <line x1="0" y1="100" x2="200" y2="100" class="linescrimmage"/>
+          <circle cx="100" cy="100" r="9" class="player-qb"/>
+          <text x="100" y="100" class="player-label">C</text>
+          <circle cx="100" cy="118" r="9" class="player-o"/>
+          <text x="100" y="118" class="player-label">QB</text>
+          <!-- Cross routes -->
+          <circle cx="25" cy="100" r="9" class="player-o"/>
+          <text x="25" y="100" class="player-label">WL</text>
+          <path d="M25 91 L25 72 L160 72" class="arrow arrow-o" marker-end="url(#arrowO4)"/>
+          <circle cx="175" cy="100" r="9" class="player-o"/>
+          <text x="175" y="100" class="player-label">WR</text>
+          <path d="M175 91 L175 80 L40 80" class="arrow arrow-b" marker-end="url(#arrowB4)"/>
+          <!-- Slot go -->
+          <circle cx="70" cy="100" r="9" class="player-o"/>
+          <text x="70" y="100" class="player-label">SL</text>
+          <path d="M70 91 L70 40" class="arrow arrow-r" stroke-dasharray="3 3" marker-end="url(#arrowR6)"/>
+          <defs>
+            <marker id="arrowO4" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L6,3 z" fill="#ffd166"/>
+            </marker>
+            <marker id="arrowB4" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L6,3 z" fill="#7dd3f7"/>
+            </marker>
+            <marker id="arrowR6" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L6,3 z" fill="#e63946"/>
+            </marker>
+          </defs>
+          <text x="90" y="66" class="route-label">CROSS</text>
+          <text x="90" y="84" class="route-label">CROSS</text>
+        </svg>
+      </div>
+      <div class="play-info">
+        <div class="play-name">✂️ Scissors (Crossing Routes)</div>
+        <span class="play-tag">Passing</span>
+        <div class="play-desc">Both outside receivers run 5 yards forward then cross the field toward each other. Creates natural picks and open receivers. Slot goes deep as decoy. Look for the crossing receiver!</div>
+      </div>
+    </div>
+
+    <!-- TD PLAY -->
+    <div class="play-card">
+      <div class="play-field">
+        <svg class="field" viewBox="0 0 200 160">
+          <line x1="0" y1="100" x2="200" y2="100" class="linescrimmage"/>
+          <circle cx="100" cy="100" r="9" class="player-qb"/>
+          <text x="100" y="100" class="player-label">C</text>
+          <circle cx="100" cy="118" r="9" class="player-o"/>
+          <text x="100" y="118" class="player-label">QB</text>
+          <!-- Corner route left -->
+          <circle cx="20" cy="100" r="9" class="player-o"/>
+          <text x="20" y="100" class="player-label">WL</text>
+          <path d="M20 91 L20 65 L45 40" class="arrow arrow-o" marker-end="url(#arrowO5)"/>
+          <!-- Post right -->
+          <circle cx="180" cy="100" r="9" class="player-o"/>
+          <text x="180" y="100" class="player-label">WR</text>
+          <path d="M180 91 L180 65 L155 40" class="arrow arrow-b" marker-end="url(#arrowB5)"/>
+          <!-- Slot flat -->
+          <circle cx="65" cy="100" r="9" class="player-o"/>
+          <text x="65" y="100" class="player-label">SL</text>
+          <path d="M65 91 L65 82 L20 82" class="arrow arrow-r" marker-end="url(#arrowR7)"/>
+          <!-- Pass arc to corner -->
+          <path d="M100 112 Q70 70 45 40" class="arrow arrow-r" stroke-dasharray="4 3" marker-end="url(#arrowR7)"/>
+          <defs>
+            <marker id="arrowO5" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L6,3 z" fill="#ffd166"/>
+            </marker>
+            <marker id="arrowB5" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L6,3 z" fill="#7dd3f7"/>
+            </marker>
+            <marker id="arrowR7" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L6,3 z" fill="#e63946"/>
+            </marker>
+          </defs>
+          <text x="43" y="35" class="route-label">TD CORNER!</text>
+          <text x="148" y="35" class="route-label">POST</text>
+        </svg>
+      </div>
+      <div class="play-info">
+        <div class="play-name">⭐ Star Power (TD Play)</div>
+        <span class="play-tag">Big Play</span>
+        <div class="play-desc">The touchdown special! Left WR runs corner route (diagonal to end zone corner). Right WR runs post (angled to center). Slot runs short flat as safety. QB throws to the corner — it's a TD!</div>
+      </div>
+    </div>
+
+  </div><!-- end passing plays grid -->
+</div>
+
+<!-- DEFENSE -->
+<div id="defense" class="page">
+  <div class="hero">
+    <div class="hero-eyebrow">Underhill Agency Playbook</div>
+    <h1>Defensive <span>Plays</span></h1>
+    <p>Pull that flag! Protect the end zone!</p>
+    <div class="hero-emoji">🛡️</div>
+  </div>
+
+  <div class="section-title">🛡️ Defensive Formations</div>
+  <div class="plays-grid">
+
+    <!-- ZONE D -->
+    <div class="play-card">
+      <div class="play-field">
+        <svg class="field" viewBox="0 0 200 160">
+          <line x1="0" y1="100" x2="200" y2="100" class="linescrimmage"/>
+          <!-- Zone areas -->
+          <rect x="5" y="30" width="55" height="65" rx="5" fill="rgba(0,119,182,0.15)" stroke="rgba(0,119,182,0.4)" stroke-width="1"/>
+          <rect x="72" y="30" width="55" height="65" rx="5" fill="rgba(0,119,182,0.15)" stroke="rgba(0,119,182,0.4)" stroke-width="1"/>
+          <rect x="140" y="30" width="55" height="65" rx="5" fill="rgba(0,119,182,0.15)" stroke="rgba(0,119,182,0.4)" stroke-width="1"/>
+          <!-- Defenders -->
+          <circle cx="33" cy="60" r="9" class="player-def"/>
+          <text x="33" y="60" class="player-label">D1</text>
+          <circle cx="100" cy="55" r="9" class="player-def"/>
+          <text x="100" y="55" class="player-label">D2</text>
+          <circle cx="167" cy="60" r="9" class="player-def"/>
+          <text x="167" y="60" class="player-label">D3</text>
+          <circle cx="65" cy="85" r="9" class="player-def"/>
+          <text x="65" y="85" class="player-label">D4</text>
+          <circle cx="135" cy="85" r="9" class="player-def"/>
+          <text x="135" y="85" class="player-label">D5</text>
+          <text x="100" y="148" fill="rgba(255,255,255,0.5)" text-anchor="middle" font-size="9">ZONE COVERAGE</text>
+        </svg>
+      </div>
+      <div class="play-info">
+        <div class="play-name">🏰 Castle Defense (Zone)</div>
+        <span class="play-tag">Defense</span>
+        <div class="play-desc">Each defender covers an area (zone) of the field, not a specific player. D4 & D5 rush after 5 seconds. Easiest defense to teach beginners — "stay in your castle!"</div>
+      </div>
+    </div>
+
+    <!-- MAN D -->
+    <div class="play-card">
+      <div class="play-field">
+        <svg class="field" viewBox="0 0 200 160">
+          <line x1="0" y1="100" x2="200" y2="100" class="linescrimmage"/>
+          <!-- offense -->
+          <circle cx="100" cy="100" r="7" fill="rgba(255,209,102,0.3)" stroke="#ffd166" stroke-width="1"/>
+          <text x="100" y="100" class="player-label" fill="#ffd166">C</text>
+          <circle cx="100" cy="116" r="7" fill="rgba(255,209,102,0.3)" stroke="#ffd166" stroke-width="1"/>
+          <text x="100" y="116" class="player-label" fill="#ffd166">QB</text>
+          <circle cx="30" cy="100" r="7" fill="rgba(255,209,102,0.3)" stroke="#ffd166" stroke-width="1"/>
+          <text x="30" y="100" class="player-label" fill="#ffd166">WL</text>
+          <circle cx="170" cy="100" r="7" fill="rgba(255,209,102,0.3)" stroke="#ffd166" stroke-width="1"/>
+          <text x="170" y="100" class="player-label" fill="#ffd166">WR</text>
+          <circle cx="70" cy="100" r="7" fill="rgba(255,209,102,0.3)" stroke="#ffd166" stroke-width="1"/>
+          <text x="70" y="100" class="player-label" fill="#ffd166">SL</text>
+          <!-- defenders shadowing -->
+          <circle cx="30" cy="82" r="9" class="player-def"/>
+          <text x="30" y="82" class="player-label">D1</text>
+          <circle cx="170" cy="82" r="9" class="player-def"/>
+          <text x="170" y="82" class="player-label">D2</text>
+          <circle cx="70" cy="82" r="9" class="player-def"/>
+          <text x="70" y="82" class="player-label">D3</text>
+          <circle cx="100" cy="82" r="9" class="player-def"/>
+          <text x="100" y="82" class="player-label">D4</text>
+          <circle cx="140" cy="90" r="9" class="player-def"/>
+          <text x="140" y="90" class="player-label">D5</text>
+          <!-- shadow lines -->
+          <line x1="30" y1="90" x2="30" y2="93" stroke="#4dabf7" stroke-width="1" stroke-dasharray="2 2"/>
+          <line x1="170" y1="90" x2="170" y2="93" stroke="#4dabf7" stroke-width="1" stroke-dasharray="2 2"/>
+          <line x1="70" y1="90" x2="70" y2="93" stroke="#4dabf7" stroke-width="1" stroke-dasharray="2 2"/>
+        </svg>
+      </div>
+      <div class="play-info">
+        <div class="play-name">🕵️ Shadow Defense (Man-to-Man)</div>
+        <span class="play-tag">Defense</span>
+        <div class="play-desc">Each defender follows one specific offensive player everywhere. "Be their shadow!" D5 is the rover/spy who can rush QB. Teach kids to watch the player, not the ball, until thrown.</div>
+      </div>
+    </div>
+
+    <!-- RUSH D -->
+    <div class="play-card">
+      <div class="play-field">
+        <svg class="field" viewBox="0 0 200 160">
+          <line x1="0" y1="100" x2="200" y2="100" class="linescrimmage"/>
+          <!-- Two rushers -->
+          <circle cx="80" cy="90" r="9" class="player-def"/>
+          <text x="80" y="90" class="player-label">RU</text>
+          <circle cx="120" cy="90" r="9" class="player-def"/>
+          <text x="120" y="90" class="player-label">RU</text>
+          <!-- Rush arrows -->
+          <path d="M80 99 L80 112 L95 120" class="arrow arrow-b" marker-end="url(#arrowD)"/>
+          <path d="M120 99 L120 112 L105 120" class="arrow arrow-b" marker-end="url(#arrowD)"/>
+          <!-- Zone defenders back -->
+          <circle cx="30" cy="60" r="9" class="player-def"/>
+          <text x="30" y="60" class="player-label">D3</text>
+          <circle cx="100" cy="50" r="9" class="player-def"/>
+          <text x="100" y="50" class="player-label">D4</text>
+          <circle cx="170" cy="60" r="9" class="player-def"/>
+          <text x="170" y="60" class="player-label">D5</text>
+          <defs>
+            <marker id="arrowD" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L6,3 z" fill="#4dabf7"/>
+            </marker>
+          </defs>
+          <text x="100" y="148" fill="rgba(255,255,255,0.5)" text-anchor="middle" font-size="9">BLITZ + COVER</text>
+        </svg>
+      </div>
+      <div class="play-info">
+        <div class="play-name">⚡ Blitz Rush</div>
+        <span class="play-tag">Defense</span>
+        <div class="play-desc">Two defenders (rushers) come at QB after snap. Three defenders stay back in zone coverage. Best used on passing downs! Only for older/more experienced kids in this age group.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="section-title">🎯 Defense Teaching Keys</div>
+  <div class="card-grid">
+    <div class="card">
+      <h3>👀 Eyes Up</h3>
+      <p>Watch the QB's eyes and the ball. When the QB looks at a receiver, that's where the pass is going. React to the ball!</p>
+    </div>
+    <div class="card">
+      <h3>🤲 Flag Pulling</h3>
+      <p>Reach for the flag with both hands. Pull DOWN, not sideways. Practice on a dummy belt before live play. Don't grab the player!</p>
+    </div>
+    <div class="card">
+      <h3>🏃 Get in Position</h3>
+      <p>Stay between your receiver and the end zone. Don't let them get behind you! Teach "cushion" — stay 3-4 yards back to start.</p>
+    </div>
+    <div class="card">
+      <h3>📣 Communicate</h3>
+      <p>Call out "I got left!" or "I got right!" so everyone knows their job. Talk on every play. Defense wins with communication!</p>
+    </div>
+  </div>
+</div>
+
+<!-- DRILLS -->
+<div id="drills" class="page">
+  <div class="hero">
+    <div class="hero-eyebrow">Underhill Agency Practice</div>
+    <h1>Practice <span>Drills</span></h1>
+    <p>Fun drills that teach real skills — every session!</p>
+    <div class="hero-emoji">🏃</div>
+  </div>
+
+  <div class="section-title">🤸 Warm-Up Drills (Always First!)</div>
+  <div class="card-grid">
+    <div class="card">
+      <h3>🏃 Freeze Tag Football</h3>
+      <p><strong style="color:#ffd166">5 min • All ages</strong><br/>Coach is "it" — kids run around trying not to get tagged. When tagged, freeze with feet apart until teammate crawls under legs. Gets kids moving and laughing immediately!</p>
+    </div>
+    <div class="card">
+      <h3>🐸 Frog Jumps</h3>
+      <p><strong style="color:#ffd166">3 min • All ages</strong><br/>Kids line up, squat like frogs, then jump forward 5 times. Race format! Great for leg strength and explosiveness. "Ready, Set, RIBBIT!" 🐸</p>
+    </div>
+    <div class="card">
+      <h3>🐍 Snake Run</h3>
+      <p><strong style="color:#ffd166">3 min • All ages</strong><br/>Kids line up in a snake formation and weave between cones together. Last kid in line runs to front. Teaches direction changes while staying together as a team.</p>
+    </div>
+  </div>
+
+  <div class="section-title">🏈 Throwing & Catching Drills</div>
+  <div class="card-grid">
+    <div class="card">
+      <h3>🎯 Target Practice</h3>
+      <p><strong style="color:#ffd166">8 min</strong><br/>Hang a hula hoop from a pole at kid height. QB throws through the hoop from 5 yards. Move back 2 yards each success. Use soft foam footballs for beginners!</p>
+    </div>
+    <div class="card">
+      <h3>👐 Catch & Go</h3>
+      <p><strong style="color:#ffd166">8 min</strong><br/>QB throws 5 yards to receiver. Receiver catches, tucks ball, runs 5 more yards. Teaches the "catch, tuck, run" sequence. No stopping after the catch!</p>
+    </div>
+    <div class="card">
+      <h3>🦅 Eagle Eyes</h3>
+      <p><strong style="color:#ffd166">6 min</strong><br/>Coach holds up colored cards as ball is thrown. Receiver must shout the color WHILE catching. Forces kids to watch the ball with focus. Makes catching a habit!</p>
+    </div>
+    <div class="card">
+      <h3>🏀 Wall Ball</h3>
+      <p><strong style="color:#ffd166">5 min</strong><br/>Pairs stand 5 yards apart. One throws gently, other catches with only hands (no body trapping). Switch every 10 catches. Develops soft hands early.</p>
+    </div>
+  </div>
+
+  <div class="section-title">🚩 Flag Pulling Drills</div>
+  <div class="card-grid">
+    <div class="card">
+      <h3>🎀 Flag Belt Relay</h3>
+      <p><strong style="color:#ffd166">8 min</strong><br/>Two teams. Ball carrier runs between 4 cones in a zigzag. Defenders try to pull flag before carrier reaches the end. Trains evasion AND flag pulling at the same time!</p>
+    </div>
+    <div class="card">
+      <h3>🦁 Lion & Gazelle</h3>
+      <p><strong style="color:#ffd166">8 min</strong><br/>3 "lions" (defenders) vs 5 "gazelles" (runners). Gazelles try to cross the field. Lions pull flags to stop them. Count how many gazelles make it across. Kids love this game!</p>
+    </div>
+    <div class="card">
+      <h3>🎯 One-on-One Open Field</h3>
+      <p><strong style="color:#ffd166">10 min</strong><br/>Ball carrier starts at cone, defender 5 yards away. Go on "HUT!" Teach kids to run at angles, not straight. Defender must angle-chase. Great for advanced players.</p>
+    </div>
+  </div>
+
+  <div class="section-title">🏃 Route Running Drills</div>
+  <div class="card-grid">
+    <div class="card">
+      <h3>✈️ Airplane Routes</h3>
+      <p><strong style="color:#ffd166">10 min</strong><br/>Lay colored cones: Red = stop and turn (hitch), Blue = run straight (go), Yellow = run diagonal (corner). Call out a color and kids run that route. Makes routes visual and memorable!</p>
+    </div>
+    <div class="card">
+      <h3>📦 Box Route</h3>
+      <p><strong style="color:#ffd166">8 min</strong><br/>Set up a 5-yard square with cones. Receiver runs each side in order. Teaches sharp cuts and directional changes. Time each kid and make it a race! Fastest wins a high-five from coach.</p>
+    </div>
+    <div class="card">
+      <h3>🎵 Freeze Route</h3>
+      <p><strong style="color:#ffd166">6 min</strong><br/>Kids run routes while music plays. When music stops, freeze and show a throwing target with hands up. Fun and teaches body position. Use their favorite song!</p>
+    </div>
+  </div>
+
+  <div class="section-title">🧠 Team Scrimmage Drills</div>
+  <div class="card-grid">
+    <div class="card">
+      <h3>⚡ 7-on-7 Walk-Through</h3>
+      <p><strong style="color:#ffd166">10 min</strong><br/>Run plays at WALKING SPEED. No flags, no rushing. Just learning where to line up and what route to run. Slow practice = fast games. Do this BEFORE every live scrimmage.</p>
+    </div>
+    <div class="card">
+      <h3>🎲 Red Zone Challenges</h3>
+      <p><strong style="color:#ffd166">12 min</strong><br/>Start offense at the 10-yard line. Only 2 plays to score a touchdown. Swap offense/defense after each series. Great for end-of-practice game scenarios. Very high energy!</p>
+    </div>
+  </div>
+</div>
+
+<!-- 8-WEEK SCHEDULE -->
+<div id="schedule" class="page">
+  <div class="hero">
+    <div class="hero-eyebrow">Underhill Agency Season Plan</div>
+    <h1>8-Week <span>Season</span></h1>
+    <p>2 practices + 1 game per week — adapt to your schedule!</p>
+    <div class="hero-emoji">📅</div>
+  </div>
+
+  <div style="background:#0f2236;border-radius:12px;padding:14px 18px;margin-bottom:20px;border-left:4px solid var(--gold)">
+    <p style="color:#a8c8e0;font-size:14px;">📌 <strong style="color:#ffd166">Practice sessions = 45–60 min</strong> each. Each session has a warm-up (10 min), skill drills (20–25 min), and scrimmage/game fun (15–20 min). Click any week to expand!</p>
+  </div>
+
+  <!-- WEEK 1 -->
+  <div class="week-card open" onclick="toggleWeek(this)">
+    <div class="week-header">
+      <h3>🌱 Week 1 — Welcome to Football!</h3>
+      <span><span class="toggle-icon">▼</span> <span class="week-badge">Foundation</span></span>
+    </div>
+    <div class="week-body collapsible">
+      <div class="session-block">
+        <h4>📚 Practice 1 — Meet the Game</h4>
+        <div class="drill-item"><div><div class="drill-name">Freeze Tag Football</div><div class="drill-desc">Get kids moving, meet teammates</div></div><span class="drill-time">10 min</span></div>
+        <div class="drill-item"><div><div class="drill-name">Flag Belt Intro</div><div class="drill-desc">Put on belts, pull flags from each other standing still</div></div><span class="drill-time">8 min</span></div>
+        <div class="drill-item"><div><div class="drill-name">Wall Ball Catch</div><div class="drill-desc">Basic catching practice in pairs</div></div><span class="drill-time">10 min</span></div>
+        <div class="drill-item"><div><div class="drill-name">Bunny Run Walk-Through</div><div class="drill-desc">Learn positions, first play walkthrough</div></div><span class="drill-time">12 min</span></div>
+        <div class="drill-item"><div><div class="drill-name">Free Scrimmage</div><div class="drill-desc">No rules — just have fun! No coaching.</div></div><span class="drill-time">10 min</span></div>
+      </div>
+      <div class="session-block">
+        <h4>📚 Practice 2 — Learn the Basics</h4>
+        <div class="drill-item"><div><div class="drill-name">Frog Jumps + Snake Run</div><div class="drill-desc">Warm-up games</div></div><span class="drill-time">8 min</span></div>
+        <div class="drill-item"><div><div class="drill-name">Flag Belt Relay</div><div class="drill-desc">Moving targets — pulling flags on the run</div></div><span class="drill-time">10 min</span></div>
+        <div class="drill-item"><div><div class="drill-name">Target Practice</div><div class="drill-desc">Hula hoop throwing targets at 5 yards</div></div><span class="drill-time">10 min</span></div>
+        <div class="drill-item"><div><div class="drill-name">Turtle + Bunny Run</div><div class="drill-desc">Practice both running plays with QB handoff</div></div><span class="drill-time">12 min</span></div>
+        <div class="drill-item"><div><div class="drill-name">Mini Game</div><div class="drill-desc">2 running plays allowed only</div></div><span class="drill-time">10 min</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WEEK 2 -->
+  <div class="week-card" onclick="toggleWeek(this)">
+    <div class="week-header">
+      <h3>🏈 Week 2 — Routes & Passes</h3>
+      <span><span class="toggle-icon">▼</span> <span class="week-badge">Passing Intro</span></span>
+    </div>
+    <div class="week-body collapsible">
+      <div class="session-block">
+        <h4>📚 Practice 3 — Throwing & Routes</h4>
+        <div class="drill-item"><div><div class="drill-name">Eagle Eyes Warm-Up</div><div class="drill-desc">Color card catching focus drill</div></div><span class="drill-time">8 min</span></div>
+        <div class="drill-item"><div><div class="drill-name">Airplane Routes</div><div class="drill-desc">Introduce Go, Hitch, and Corner with cones</div></div><span class="drill-time">12 min</span></div>
+        <div class="drill-item"><div><div class="drill-name">Catch & Go</div><div class="drill-desc">Catch + tuck + run sequence</div></div><span class="drill-time">10 min</span></div>
+        <div class="drill-item"><div><div class="drill-name">Rocket Play Walk-Through</div><div class="drill-desc">Learn Go routes, QB throws to open WR</div></div><span class="drill-time">12 min</span></div>
+        <div class="drill-item"><div><div class="drill-name">Run & Pass Scrimmage</div><div class="drill-desc">Runs + Go routes only</div></div><span class="drill-time">8 min</span></div>
+      </div>
+      <div class="session-block">
+        <h4>📚 Practice 4 — Hook Routes</h4>
+        <div class="drill-item"><div><div class="drill-name">Lion & Gazelle</div><div class="drill-desc">Flag pulling game, high energy warm-up</div></div><span class="drill-time">10 min</span></div>
+        <div class="drill-item"><div><div class="drill-name">Box Route Drill</div><div class="drill-desc">Sharp cuts around 5-yard box cones</div></div><span class="drill-time">10 min</span></div>
+        <div class="drill-item"><div><div class="drill-name">Hook & Hope Walk-Through</div><div class="drill-desc">5 steps, stop, turn, look for ball</div></div><span class="drill-time">12 min</span></div>
+        <div class="drill-item"><div><div class="drill-name">Castle Defense Intro</div><div class="drill-desc">Show zone areas with cones on field</div></div><span class="drill-time">8 min</span></div>
+        <div class="drill-item"><div><div class="drill-name">First Real Scrimmage!</div><div class="drill-desc">All plays learned so far, both offense/defense</div></div><span class="drill-time">10 min</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WEEK 3 -->
+  <div class="week-card" onclick="toggleWeek(this)">
+    <div class="week-header">
+      <h3>🛡️ Week 3 — Defense Basics</h3>
+      <span><span class="toggle-icon">▼</span> <span class="week-badge">Defense Focus</span></span>
+    </div>
+    <div class="week-body collapsible">
+      <div class="session-block">
+        <h4>📚 Practice 5 — Zone Coverage</h4>
+        <div class="drill-item"><div><div class="drill-name">Shadow Tag</div><div class="drill-desc">Kids pair up, one shadows the other's every move</div></div><span class="drill-time">8 min</span></div>
+        <div class="drill-item"><div><div class="drill-name">Castle Defense Setup</div><div class="drill-desc">Place kids in zones, walk through movements</div></div><span class="drill-time">12 min</span></div>
+        <div class="drill-item"><div><div class="drill-name">One-on-One Flag Pull</div><div class="drill-desc">Individual defender vs ball carrier</div></div><span class="drill-time">10 min</span></div>
+        <div class="drill-item"><div><div class="drill-name">Offense vs Defense Drill</div><div class="drill-desc">Run Bunny/Turtle vs Zone Defense</div></div><span class="drill-time">12 min</span></div>
+        <div class="drill-item"><div><div class="drill-name">Team Scrimmage</div><div class="drill-desc">Focus on defense calling zones out loud</div></div><span class="drill-time">8 min</span></div>
+      </div>
+      <div class="session-block">
+        <h4>📚 Practice 6 — Man-to-Man</h4>
+        <div class="drill-item"><div><div class="drill-name">Mirror Drill</div><div class="drill-desc">Pairs face each other, one mirrors movements laterally</div></div><span class="drill-time">8 min</span></div>
+        <div class="drill-item"><div><div class="drill-name">Shadow Defense Intro</div><div class="drill-desc">Assign each defender one receiver to follow</div></div><span class="drill-time">12 min</span></div>
+        <div class="drill-item"><div><div class="drill-name">Interception Drill</div><div class="drill-desc">Defenders practice jumping routes to intercept</div></div><span class="drill-time">10 min</span></div>
+        <div class="drill-item"><div><div class="drill-name">Scissors Play Walk-Through</div><div class="drill-desc">Crossing routes on offense</div></div><span class="drill-time">8 min</span></div>
+        <div class="drill-item"><div><div class="drill-name">Game Scrimmage</div><div class="drill-desc">Full rules, coach refs. Review after.</div></div><span class="drill-time">12 min</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WEEK 4 -->
+  <div class="week-card" onclick="toggleWeek(this)">
+    <div class="week-header">
+      <h3>🔥 Week 4 — Speed It Up!</h3>
+      <span><span class="toggle-icon">▼</span> <span class="week-badge">Game Speed</span></span>
+    </div>
+    <div class="week-body collapsible">
+      <div class="session-block">
+        <h4>📚 Practice 7 — Fast Plays</h4>
+        <div class="drill-item"><div><div class="drill-name">Speed Warm-Up Circuit</div><div class="drill-desc">High knees, butt kicks, shuffle 10 yards each</div></div><span class="drill-time">8 min</span></div>
+        <div class="drill-item"><div><div class="drill-name">No-Huddle Drill</div><div class="drill-desc">QB calls play at line of scrimmage (no huddle)</div></div><span class="drill-time">10 min</span></div>
+        <div class="drill-item"><div><div class="drill-name">Star Power Walk-Through</div><div class="drill-desc">Introduce TD play — corner + post routes</div></div><span class="drill-time">12 min</span></div>
+        <div class="drill-item"><div><div class="drill-name">Red Zone Challenge</div><div class="drill-desc">Start at 10 yards, 2 downs to score TD</div></div><span class="drill-time">15 min</span></div>
+        <div class="drill-item"><div><div class="drill-name">Cool Down + Review</div><div class="drill-desc">Stretching + talk about what went well</div></div><span class="drill-time">5 min</span></div>
+      </div>
+      <div class="session-block">
+        <h4>📚 Practice 8 — Full Playbook Review</h4>
+        <div class="drill-item"><div><div class="drill-name">Team Quiz Game</div><div class="drill-desc">Coach calls play name, kids show where to line up</div></div><span class="drill-time">10 min</span></div>
+        <div class="drill-item"><div><div class="drill-name">Fox Scramble Intro</div><div class="drill-desc">QB run play — when to keep vs throw</div></div><span class="drill-time">10 min</span></div>
+        <div class="drill-item"><div><div class="drill-name">All Routes Review</div><div class="drill-desc">Rotate QBs, run every pass play</div></div><span class="drill-time">12 min</span></div>
+        <div class="drill-item"><div><div class="drill-name">Full Team Scrimmage</div><div class="drill-desc">Entire playbook available. Coach observes only.</div></div><span class="drill-time">15 min</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WEEK 5 -->
+  <div class="week-card" onclick="toggleWeek(this)">
+    <div class="week-header">
+      <h3>🌟 Week 5 — Polish & Refine</h3>
+      <span><span class="toggle-icon">▼</span> <span class="week-badge">Refinement</span></span>
+    </div>
+    <div class="week-body collapsible">
+      <div class="session-block">
+        <h4>📚 Practice 9 — Fix Weaknesses</h4>
+        <div class="drill-item"><div><div class="drill-name">Weakness Focus Drills</div><div class="drill-desc">Coach identifies 1-2 areas to fix from games</div></div><span class="drill-time">15 min</span></div>
+        <div class="drill-item"><div><div class="drill-name">Eagle Eyes Catching</div><div class="drill-desc">Under pressure catching focus</div></div><span class="drill-time">10 min</span></div>
+        <div class="drill-item"><div><div class="drill-name">Position Rotation</div><div class="drill-desc">Every kid plays every position this week!</div></div><span class="drill-time">15 min</span></div>
+        <div class="drill-item"><div><div class="drill-name">Competition Scrimmage</div><div class="drill-desc">Offense vs Defense, track scores</div></div><span class="drill-time">10 min</span></div>
+      </div>
+      <div class="session-block">
+        <h4>📚 Practice 10 — Confidence Builders</h4>
+        <div class="drill-item"><div><div class="drill-name">Best Play Highlights</div><div class="drill-desc">Run each player's favorite play for them specifically</div></div><span class="drill-time">10 min</span></div>
+        <div class="drill-item"><div><div class="drill-name">Long Bomb Challenge</div><div class="drill-desc">Who can throw/catch the longest pass?</div></div><span class="drill-time">10 min</span></div>
+        <div class="drill-item"><div><div class="drill-name">End-to-End Drive</div><div class="drill-desc">Full field drive, score a TD using only the playbook</div></div><span class="drill-time">15 min</span></div>
+        <div class="drill-item"><div><div class="drill-name">Team Cheer + Celebration</div><div class="drill-desc">Team picks a celebration dance for TDs!</div></div><span class="drill-time">5 min</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WEEK 6 -->
+  <div class="week-card" onclick="toggleWeek(this)">
+    <div class="week-header">
+      <h3>🎯 Week 6 — Situational Football</h3>
+      <span><span class="toggle-icon">▼</span> <span class="week-badge">Game Situations</span></span>
+    </div>
+    <div class="week-body collapsible">
+      <div class="session-block">
+        <h4>📚 Practice 11 — Short Yardage</h4>
+        <div class="drill-item"><div><div class="drill-name">4th Down Situations</div><div class="drill-desc">Need 2 yards — what play do you call?</div></div><span class="drill-time">12 min</span></div>
+        <div class="drill-item"><div><div class="drill-name">Bull Rush Practice</div><div class="drill-desc">Short yardage running drill, 1 yard to go</div></div><span class="drill-time">10 min</span></div>
+        <div class="drill-item"><div><div class="drill-name">2-Point Conversion Drills</div><div class="drill-desc">Practice scoring extra points after TDs</div></div><span class="drill-time">10 min</span></div>
+        <div class="drill-item"><div><div class="drill-name">Situational Scrimmage</div><div class="drill-desc">Coach calls down/distance situations</div></div><span class="drill-time">15 min</span></div>
+      </div>
+      <div class="session-block">
+        <h4>📚 Practice 12 — End of Game</h4>
+        <div class="drill-item"><div><div class="drill-name">Comeback Scenario</div><div class="drill-desc">Down by 6, 2 mins left — run the two-minute drill</div></div><span class="drill-time">12 min</span></div>
+        <div class="drill-item"><div><div class="drill-name">Interception Return Drill</div><div class="drill-desc">What to do when defense intercepts a pass</div></div><span class="drill-time">10 min</span></div>
+        <div class="drill-item"><div><div class="drill-name">Full Game Simulation</div><div class="drill-desc">Two halves, real score kept, coach refs</div></div><span class="drill-time">20 min</span></div>
+        <div class="drill-item"><div><div class="drill-name">Game Review Discussion</div><div class="drill-desc">What worked? What was fun? Positives only!</div></div><span class="drill-time">8 min</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WEEK 7 -->
+  <div class="week-card" onclick="toggleWeek(this)">
+    <div class="week-header">
+      <h3>🏆 Week 7 — Championship Prep</h3>
+      <span><span class="toggle-icon">▼</span> <span class="week-badge">Pre-Championship</span></span>
+    </div>
+    <div class="week-body collapsible">
+      <div class="session-block">
+        <h4>📚 Practice 13 — Peak Performance</h4>
+        <div class="drill-item"><div><div class="drill-name">Team Highlight Reel</div><div class="drill-desc">Re-run all the big plays from the season!</div></div><span class="drill-time">10 min</span></div>
+        <div class="drill-item"><div><div class="drill-name">Top 3 Plays Voted</div><div class="drill-desc">Kids vote on their 3 favorite plays to use this week</div></div><span class="drill-time">5 min</span></div>
+        <div class="drill-item"><div><div class="drill-name">Competition Mode Scrimmage</div><div class="drill-desc">5-on-5, full rules, track stats</div></div><span class="drill-time">20 min</span></div>
+        <div class="drill-item"><div><div class="drill-name">Individual Skill Work</div><div class="drill-desc">Each kid works on their personal strength</div></div><span class="drill-time">15 min</span></div>
+      </div>
+      <div class="session-block">
+        <h4>📚 Practice 14 — Final Tune-Up</h4>
+        <div class="drill-item"><div><div class="drill-name">Light Warm-Up Only</div><div class="drill-desc">Keep it easy before championship week</div></div><span class="drill-time">10 min</span></div>
+        <div class="drill-item"><div><div class="drill-name">Playbook Walk-Through</div><div class="drill-desc">No contact — just mental repetition of plays</div></div><span class="drill-time">15 min</span></div>
+        <div class="drill-item"><div><div class="drill-name">Team Huddle</div><div class="drill-desc">Talk about teamwork, effort, fun — not winning</div></div><span class="drill-time">10 min</span></div>
+        <div class="drill-item"><div><div class="drill-name">Fun Mini-Games</div><div class="drill-desc">Relay races, fun competitions, keep energy positive</div></div><span class="drill-time">15 min</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WEEK 8 -->
+  <div class="week-card" onclick="toggleWeek(this)">
+    <div class="week-header">
+      <h3>🎉 Week 8 — Championship & Celebration!</h3>
+      <span><span class="toggle-icon">▼</span> <span class="week-badge">🏆 Finale!</span></span>
+    </div>
+    <div class="week-body collapsible">
+      <div class="session-block">
+        <h4>📚 Practice 15 — Pre-Game</h4>
+        <div class="drill-item"><div><div class="drill-name">Final Warm-Up</div><div class="drill-desc">Light, fun — protect energy for game day</div></div><span class="drill-time">10 min</span></div>
+        <div class="drill-item"><div><div class="drill-name">Pep Talk</div><div class="drill-desc">Coach shares best memory from each kid this season</div></div><span class="drill-time">8 min</span></div>
+        <div class="drill-item"><div><div class="drill-name">3 Play Review</div><div class="drill-desc">Walk through the 3 plays the team chose as favorites</div></div><span class="drill-time">10 min</span></div>
+        <div class="drill-item"><div><div class="drill-name">Team Cheer Practice!</div><div class="drill-desc">Get loud, get pumped — game day energy!</div></div><span class="drill-time">5 min</span></div>
+      </div>
+      <div class="session-block game">
+        <h4>🏆 Championship Game Day!</h4>
+        <div class="drill-item"><div><div class="drill-name">Pregame Warm-Up</div><div class="drill-desc">30 min before game — light jogs, catches</div></div><span class="drill-time">15 min</span></div>
+        <div class="drill-item"><div><div class="drill-name">🏈 THE CHAMPIONSHIP GAME</div><div class="drill-desc">Full game, all the skills, all the plays!</div></div><span class="drill-time">40 min</span></div>
+        <div class="drill-item"><div><div class="drill-name">🏅 Awards Ceremony</div><div class="drill-desc">Every player gets a certificate or trophy!</div></div><span class="drill-time">10 min</span></div>
+        <div class="drill-item"><div><div class="drill-name">🎉 Team Party!</div><div class="drill-desc">Snacks, photos, celebrate the whole season!</div></div><span class="drill-time">Forever</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cheer-box">
+    <h3>🏆 Season Summary</h3>
+    <p>8 Plays Learned • 15 Practice Sessions • 1 Amazing Team • Countless Memories Made! 🌟</p>
+  </div>
+</div>
+
+<!-- TIPS -->
+<div id="tips" class="page">
+  <div class="hero">
+    <div class="hero-eyebrow">Underhill Agency Coaching Guide</div>
+    <h1>Coach's <span>Tip Sheet</span></h1>
+    <p>What the best youth coaches know!</p>
+    <div class="hero-emoji">💡</div>
+  </div>
+
+  <div class="section-title">🧠 Coaching Philosophy</div>
+
+  <div class="tip-card">
+    <div class="tip-icon">😂</div>
+    <div>
+      <h4>Fun > Winning (Always)</h4>
+      <p>At ages 5–8, if kids are laughing and smiling, you're winning. Skill development is secondary to making them love the sport. A kid who loves football at 7 will be good at 12.</p>
+    </div>
+  </div>
+  <div class="tip-card">
+    <div class="tip-icon">⏱️</div>
+    <div>
+      <h4>Short Drills, High Energy</h4>
+      <p>5–8 year olds have 5–8 minutes of focused attention per activity. Keep every drill under 10 minutes. The moment they're bored, move on. Better to end a drill early than 2 minutes late.</p>
+    </div>
+  </div>
+  <div class="tip-card">
+    <div class="tip-icon">🎉</div>
+    <div>
+      <h4>Celebrate Everything</h4>
+      <p>Good throw, bad throw, good effort — celebrate it all. Use a "Great Job!" signal (fist pump, high-five, thumbs up) liberally. Positive reinforcement builds confidence 10x faster than correction.</p>
+    </div>
+  </div>
+  <div class="tip-card">
+    <div class="tip-icon">🔄</div>
+    <div>
+      <h4>Rotate Positions Every Week</h4>
+      <p>Every kid should play every position across the season. This builds complete football IQ, keeps things fair, and prevents "star player" burnout at age 7. You'll find surprising natural talent!</p>
+    </div>
+  </div>
+  <div class="tip-card">
+    <div class="tip-icon">🐌</div>
+    <div>
+      <h4>Slow = Fast in Practice</h4>
+      <p>Walk-throughs at full speed make game speed automatic. The temptation is to scrimmage immediately — resist it. 10 minutes of slow walk-through = 30 minutes of confused live practice.</p>
+    </div>
+  </div>
+  <div class="tip-card">
+    <div class="tip-icon">🗣️</div>
+    <div>
+      <h4>Simple Language Only</h4>
+      <p>No "shift your hips", "read the coverage", or "release off the line." Say "run straight then STOP!" or "when you hear HUT, go fast!" Animal names for plays help enormously.</p>
+    </div>
+  </div>
+  <div class="tip-card">
+    <div class="tip-icon">🤲</div>
+    <div>
+      <h4>Parent Engagement</h4>
+      <p>Send parents a weekly "homework" tip — just one thing to practice at home (e.g., "10 gentle catches in the yard"). Parent involvement doubles skill development between practices.</p>
+    </div>
+  </div>
+  <div class="tip-card">
+    <div class="tip-icon">🏅</div>
+    <div>
+      <h4>End Every Practice Positively</h4>
+      <p>Last 3 minutes: gather in a circle, coach says one specific positive about each player ("I loved how Alex caught that tough one!"), then team cheer. They'll be excited for next practice!</p>
+    </div>
+  </div>
+
+  <div class="section-title">📊 Quick Reference — Game Day Calls</div>
+  <div class="card-grid">
+    <div class="card">
+      <h3>🏃 Need a Run?</h3>
+      <ul>
+        <li>Short yardage → Bull Rush</li>
+        <li>Outside space → Bunny or Turtle</li>
+        <li>Fast QB → Fox Scramble</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>📡 Need a Pass?</h3>
+      <ul>
+        <li>Open field → Rocket (Go routes)</li>
+        <li>Quick ball → Hook & Hope</li>
+        <li>Beat defense → Scissors</li>
+        <li>Need TD → Star Power</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>🛡️ Defense Call?</h3>
+      <ul>
+        <li>Default → Castle (Zone)</li>
+        <li>Tight coverage → Shadow (Man)</li>
+        <li>Stop QB → Blitz Rush</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>🆘 Team is Struggling?</h3>
+      <ul>
+        <li>Call timeout for water + reset</li>
+        <li>Pick ONE simple play, run it</li>
+        <li>Praise effort over outcome</li>
+        <li>Have fun — smile and laugh!</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="cheer-box">
+    <h3>🌟 Coach's Reminder</h3>
+    <p>"You're not coaching football. You're coaching confidence, teamwork, and joy. The X's and O's are just the vehicle." 🏈❤️</p>
+  </div>
+</div>
+
+<!-- ROSTER -->
+<div id="roster" class="page">
+  <div class="hero">
+    <div class="hero-eyebrow">Underhill Agency — Marshall Rec</div>
+    <h1>Team <span>Roster</span></h1>
+    <p>12 Players Strong — Let's Go! 💪</p>
+    <div class="hero-emoji">👥</div>
+  </div>
+
+  <div class="section-title"><div class="st-accent"></div>🏈 Player Roster</div>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin-bottom:28px;">
+
+    <div class="roster-card"><div class="player-num">1</div><div class="player-info"><div class="player-name">Braxton Gordon Woods</div><div class="player-pos">Position: —</div></div><span class="player-badge">⭐</span></div>
+    <div class="roster-card"><div class="player-num">2</div><div class="player-info"><div class="player-name">Paisley Sawyer Woods</div><div class="player-pos">Position: —</div></div><span class="player-badge">⭐</span></div>
+    <div class="roster-card"><div class="player-num">3</div><div class="player-info"><div class="player-name">Sawyer R Ballard</div><div class="player-pos">Position: —</div></div><span class="player-badge">⭐</span></div>
+    <div class="roster-card"><div class="player-num">4</div><div class="player-info"><div class="player-name">Amelia Underhill</div><div class="player-pos">Position: —</div></div><span class="player-badge">⭐</span></div>
+    <div class="roster-card"><div class="player-num">5</div><div class="player-info"><div class="player-name">Evan Merringer</div><div class="player-pos">Position: —</div></div><span class="player-badge">⭐</span></div>
+    <div class="roster-card"><div class="player-num">6</div><div class="player-info"><div class="player-name">Kinzley Bowers</div><div class="player-pos">Position: —</div></div><span class="player-badge">⭐</span></div>
+    <div class="roster-card"><div class="player-num">7</div><div class="player-info"><div class="player-name">Cohan Bowers</div><div class="player-pos">Position: —</div></div><span class="player-badge">⭐</span></div>
+    <div class="roster-card"><div class="player-num">8</div><div class="player-info"><div class="player-name">Grayson Porter Parris</div><div class="player-pos">Position: —</div></div><span class="player-badge">⭐</span></div>
+    <div class="roster-card"><div class="player-num">9</div><div class="player-info"><div class="player-name">Hayden Olding</div><div class="player-pos">Position: —</div></div><span class="player-badge">⭐</span></div>
+    <div class="roster-card"><div class="player-num">10</div><div class="player-info"><div class="player-name">Atlas A Gillett</div><div class="player-pos">Position: —</div></div><span class="player-badge">⭐</span></div>
+    <div class="roster-card"><div class="player-num">11</div><div class="player-info"><div class="player-name">Yogi Sarath</div><div class="player-pos">Position: —</div></div><span class="player-badge">⭐</span></div>
+    <div class="roster-card"><div class="player-num">12</div><div class="player-info"><div class="player-name">Eric Reynolds</div><div class="player-pos">Position: —</div></div><span class="player-badge">⭐</span></div>
+
+  </div>
+
+  <div class="section-title"><div class="st-accent"></div>📊 Team at a Glance</div>
+  <div class="card-grid">
+    <div class="card">
+      <h3>👥 Total Players</h3>
+      <p style="font-size:36px;font-family:'Barlow Condensed',sans-serif;color:var(--white);font-weight:900;margin:8px 0;">12</p>
+      <p>Enough for two full 5-on-5 squads with 2 subs — perfect for rotating everyone in!</p>
+    </div>
+    <div class="card">
+      <h3>🔄 Rotation Plan</h3>
+      <p>With 12 players, run <strong style="color:var(--white)">two squads of 6</strong>. Rotate every series so everyone plays equal time. No player sits more than one series.</p>
+    </div>
+    <div class="card">
+      <h3>📍 Position Rotation</h3>
+      <p>Rotate every player through QB, Center, Receiver, and Runner across the 8-week season. Every kid experiences every role!</p>
+    </div>
+    <div class="card">
+      <h3>🏅 Participation Goal</h3>
+      <p>Every player touches the ball at least <strong style="color:var(--white)">once per game</strong>. Track it on the sideline — if someone hasn't had the ball, design a play for them!</p>
+    </div>
+  </div>
+
+  <div class="cheer-box">
+    <h3>🏈 Underhill Agency — Marshall Rec Flag Football</h3>
+    <p>12 kids • 8 weeks • 1 team! Let's have an amazing season together! 🎉</p>
+  </div>
+</div>
+
+</div><!-- end main-content -->
+</div><!-- end app-shell -->
+
+<script>
+  const tabLabels = {
+    home: '🏠 Home',
+    rules: '📋 Official Rules',
+    offense: '⚡ Offensive Plays',
+    defense: '🛡️ Defensive Plays',
+    drills: '🏃 Practice Drills',
+    schedule: '📅 8-Week Season Plan',
+    tips: '💡 Coach Tips',
+    roster: '👥 Team Roster'
+  };
+
+  function showTab(name, btn) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(name).classList.add('active');
+    if (btn) btn.classList.add('active');
+    document.getElementById('topbar-label').textContent = tabLabels[name] || name;
+    document.querySelector('.main-content').scrollTo(0, 0);
+    window.scrollTo(0, 0);
+  }
+
+  function toggleWeek(card) {
+    card.classList.toggle('open');
+  }
+</script>
+</body>
+</html>
